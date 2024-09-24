@@ -1,0 +1,27 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+northwestern-fed-district-latest.osm.pbf
+front/node_modules
+server/tiles
+tegola-example-bonn
+front/dist
+front/dist-ssr
+front/*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

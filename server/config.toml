@@ -1,0 +1,13 @@
+[webserver]
+port = ":8080"  # Порт, на котором будет работать сервер
+
+[providers]
+type = "mbtiles"  # Тип провайдера
+uri = "./data/your-map.mbtiles"  # Путь к вашему .mbtiles файлу
+
+[[maps]]
+name = "mymap"
+[[maps.layers]]
+provider_layer = "mylayer"
+min_zoom = 0
+max_zoom = 14
