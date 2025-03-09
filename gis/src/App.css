@@ -45,3 +45,9 @@
 	display: flex;
 	gap: 16px;
 }
+
+.maplibre-wrapper {
+	margin-top: 48px;
+	width: 100%;
+	height: 400px;
+}

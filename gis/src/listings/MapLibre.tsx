@@ -4,47 +4,65 @@ import "./style.css";
 
 export const maplibre = `
 function Map() {
+  const [map, setMap] = React.useState(null);
+	const mapContainer = React.useRef(null);
+
 	React.useEffect(() => {
-		// Создаем карту
-    const map = new maplibregl.Map({
-     container: "map", // ID контейнера для карты
-     style: {
-       version: 8,
-       sources: {
-         // Определение источника тайлов
-         "custom-tiles": {
-           type: "vector", // Или "raster" для растровых тайлов
-           tiles: ["http://localhost:8080/tiles/{z}/{x}/{y}.pbf"], // URL для тайлов
-           minzoom: 12,
-           maxzoom: 14
-         }
-       },
-       layers: [
-         {
-           id: "custom-layer",
-           type: "fill", // Тип слоя (например, "line", "fill", "symbol" и т.д.)
-           source: "custom-tiles", // Используем источник, определенный выше
-           "source-layer": "water", // Указываем название слоя, которое есть в данных тайлов
-           paint: {
-             "fill-color": "#888888",
-             "fill-opacity": 0.5
-           }
-         }
-       ]
-     },
-     center: [30.3158, 59.9386], // Центр карты (координаты Санкт-Петербурга)
-     zoom: 13 // Начальный зум
-   });
+		if (!mapContainer.current) return;
 
-   // Очищаем карту при размонтировании компонента
-   return () => map.remove();
-	}, []);
+		const initializeMap = async () => {
+			const mapInstance = new maplibregl.Map({
+				container: mapContainer.current, // элемент id для карты
+				style: {
+					version: 8,
+					sources: {
+						moscow_source: {
+							type: "vector",
+							tiles: ["http://localhost:8083/tiles/{z}/{x}/{y}.pbf"],
+						},
+					},
+					layers: [], // оставляем пустым, позже добавим
+				},
+				center: [37.6173, 55.7558], // Москва
+				zoom: 12,
+			});
 
-	return <div id="map" className="maplibre-wrapper"></div>;
+			mapInstance.on("load", async () => {
+				// получаем метаданные слоев JSON от MBTileserver
+				const res = await fetch("http://localhost:8082/services/moscow");
+				const metadata = await res.json();
+
+				metadata.vector_layers.forEach((vlayer) => {
+					// добавляем слои автоматически
+					mapInstance.addLayer({
+						id: vlayer.id,
+						type: "fill", // если хотите можно добавить условия по типу слоя в зависимости от слоя
+						source: "moscow_source",
+						"source-layer": vlayer.id,
+						paint: {
+							// пример простого оформления, можно усложнять по типам слоёв
+							"fill-color": "#cccccc",
+							"fill-opacity": 0.5,
+						},
+					});
+				});
+			});
+
+			setMap(mapInstance);
+		};
+
+		if (!map) initializeMap();
+
+		// Очистка карты при размонтировании компонента
+		return () => {
+			map?.remove();
+		};
+	}, [map]); // Запускается один раз при монтировании компонента
+
+	return <div ref={mapContainer} className="maplibre-wrapper"></div>;
 };
 
- render(<Map />);
-`;
+render(<Map />);`;
 
 export const maplibre_scope = {
 	maplibregl,

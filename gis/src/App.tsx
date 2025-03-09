@@ -1,6 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
+import "maplibre-gl/dist/maplibre-gl.css";
+
 import { maplibre, maplibre_scope } from "./listings/MapLibre";
+import { mapbox, mapbox_scope } from "./listings/MapBox";
+import { maplibrereact, maplibrereact_scope } from "./listings/MapLibreReact";
+import { oLMap, oLMap_scope } from "./listings/OpenLayers";
+import { cesiumMap, cesium_scope } from "./listings/Cesium";
+import { maptalksGLMap, maptalks_scope } from "./listings/Maptalks";
 
 import "./App.css";
 
@@ -11,6 +18,11 @@ const scope = {
 	reactLogo,
 	viteLogo,
 	...maplibre_scope,
+	...mapbox_scope,
+	...maplibrereact_scope,
+	...oLMap_scope,
+	...cesium_scope,
+	...maptalks_scope,
 };
 
 function App() {
@@ -18,10 +30,14 @@ function App() {
 
 	return (
 		<>
-			<Map />
 			<nav className="navigation">
 				<a onClick={() => setCode(helloWord)}>helloWord</a>
-				<a onClick={() => setCode(maplibre)}>MapLibre</a>
+				<a onClick={() => setCode(maplibre)}>MapLibre + mbTiles</a>
+				<a onClick={() => setCode(mapbox)}>MapBox + TileServerGL</a>
+				<a onClick={() => setCode(maplibrereact)}>MapLibreReact + BBOX Server</a>
+				<a onClick={() => setCode(oLMap)}>OLMap + Martin</a>
+				<a onClick={() => setCode(cesiumMap)}>Cesium</a>
+				<a onClick={() => setCode(maptalksGLMap)}>Maptalks png+mvt</a>
 			</nav>
 
 			<LiveProvider code={code} scope={scope} noInline>
@@ -62,9 +78,10 @@ const helloWord = `
     
   render(<Exam />);
 `;
-
+/*
 function Map() {
 	useEffect(() => {
+		console.log(maplibre_scope.maplibregl);
 		// Создаем карту
 		const map = new maplibre_scope.maplibregl.Map({
 			container: "map", // ID контейнера для карты
@@ -74,7 +91,7 @@ function Map() {
 					// Определение источника тайлов
 					"custom-tiles": {
 						type: "vector", // Или "raster" для растровых тайлов
-						tiles: ["http://localhost:8080/tiles/{z}/{x}/{y}.pbf"], // URL для тайлов
+						tiles: ["http://localhost:8080/tiles/{z}/{x}/{y}.png"], // URL для тайлов
 						minzoom: 12,
 						maxzoom: 14,
 					},
@@ -92,7 +109,7 @@ function Map() {
 					},
 				],
 			},
-			center: [30.3158, 59.9386], // Центр карты (координаты Санкт-Петербурга)
+			center: [37.3658, 55.4486], // Центр карты (координаты Санкт-Петербурга)
 			zoom: 13, // Начальный зум
 		});
 
@@ -102,3 +119,4 @@ function Map() {
 
 	return <div id="map" className="maplibre-wrapper"></div>;
 }
+*/
