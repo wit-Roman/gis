@@ -12,7 +12,7 @@ import { cesiumMap, cesium_scope } from "./listings/Cesium";
 import { maptalksGLMap, maptalks_scope } from "./listings/Maptalks";
 import { pmtilesMap, pmtilesMap_scope } from "./listings/Leaflet";
 import { tangramMap, tangramMap_scope } from "./listings/Tangram";
-import { MapTilerMap } from "./listings/Maptiler";
+import { mapTilerMap, mapTilerMap_scope } from "./listings/Maptiler";
 
 import "./App.css";
 
@@ -30,6 +30,7 @@ const scope = {
 	...maptalks_scope,
 	...pmtilesMap_scope,
 	...tangramMap_scope,
+	...mapTilerMap_scope,
 };
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
 				<a onClick={() => setCode(maptalksGLMap)}>Maptalks png+mvt</a>
 				<a onClick={() => setCode(pmtilesMap)}>Leaflet + PMTiles</a>
 				<a onClick={() => setCode(tangramMap)}>Tangram + PMTiles</a>
+				<a onClick={() => setCode(mapTilerMap)}>MapTiler</a>
 			</nav>
 
 			<LiveProvider code={code} scope={scope} noInline>
