@@ -12,8 +12,8 @@ function Map() {
 				zoom: 12,
 			}}
 			style={{ width: "100%", height: "400px" }}
-			mapStyle="http://localhost:8080/styles/basic-preview/style.json"
-			mapboxAccessToken="rabotat!"
+			mapStyle="http://localhost:8090/styles/basic-preview/style.json"
+			mapboxAccessToken="token"
 			// mapStyle="https://api.maptiler.com/maps/basic-v2/style.json?key=cctloEOtgU4XafZvqEL8"
 			// mapboxAccessToken="cctloEOtgU4XafZvqEL8"
             hash={true}

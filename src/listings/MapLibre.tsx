@@ -18,7 +18,8 @@ function Map() {
 					sources: {
 						moscow_source: {
 							type: "vector",
-							tiles: ["http://localhost:8083/tiles/{z}/{x}/{y}.pbf"],
+							// tiles: ["http://localhost:8083/tiles/{z}/{x}/{y}.pbf"],
+							tiles: ["http://localhost:8082/services/moscow/tiles/{z}/{x}/{y}.pbf"],
 						},
 					},
 					layers: [], // оставляем пустым, позже добавим

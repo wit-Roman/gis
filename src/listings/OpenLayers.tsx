@@ -1,8 +1,8 @@
-import OLMap from "ol/Map";
-import View from "ol/View";
-import MVT from "ol/format/MVT";
-import VectorTileLayer from "ol/layer/VectorTile";
-import VectorTileSource from "ol/source/VectorTile";
+import OL_Map from "ol/Map";
+import OL_View from "ol/View";
+import OL_MVT from "ol/format/MVT";
+import OL_VectorTileLayer from "ol/layer/VectorTile";
+import OL_VectorTileSource from "ol/source/VectorTile";
 
 import "./style.css";
 
@@ -15,16 +15,16 @@ function Map() {
 	React.useEffect(() => {
 		if (!mapContainerRef.current || !infoContainerRef.current || mapRef.current) return;
 
-		mapRef.current = new OLMap({
+		mapRef.current = new OL_Map({
 			target: mapContainerRef.current,
-			view: new View({
+			view: new OL_View({
 				center: [4189973, 7507950],
 				zoom: 12,
 			}),
 			layers: [
-				new VectorTileLayer({
-					source: new VectorTileSource({
-						format: new MVT(),
+				new OL_VectorTileLayer({
+					source: new OL_VectorTileSource({
+						format: new OL_MVT(),
 						url: "http://localhost:3000/moscow/{z}/{x}/{y}",
 						//url: "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer/tile/{z}/{y}/{x}.pbf",
 					}),
@@ -58,9 +58,9 @@ function Map() {
 `;
 
 export const oLMap_scope = {
-	OLMap,
-	View,
-	MVT,
-	VectorTileLayer,
-	VectorTileSource,
+	OL_Map,
+	OL_View,
+	OL_MVT,
+	OL_VectorTileLayer,
+	OL_VectorTileSource,
 };
