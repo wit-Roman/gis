@@ -1,33 +1,43 @@
-import React, { useEffect, useRef } from "react";
-import { Map, MapStyle, config } from "@maptiler/sdk";
+import { Map as MapTiler, MapStyle, config } from "@maptiler/sdk";
+
+export const mapTilerMap = `
+function Map() {
 
 export const MapTilerMap = () => {
-	const mapContainer = useRef(null);
-	const map = useRef(null);
+	const mapContainer = React.useRef(null);
+	const map = React.useRef(null);
 
-	useEffect(() => {
+	React.useEffect(() => {
 		if (map.current || !mapContainer.current) return;
 		config.apiKey = "JUBbhzA6eP48DTH3H8rP";
 
-		map.current = new Map({
+		map.current = new MapTiler({
 			container: mapContainer.current,
-			style: MapStyle.STREETS, // или MapStyle.BASIC, SATELLITE и др.
-			center: [37.62, 55.75], // долгота, широта (Москва, например)
+			style: MapStyle.STREETS,
+			center: [37.62, 55.75]
 			zoom: 10,
 			hash: true,
 		});
 
 		map.current.on("error", (e) => {
-			console.error("Ошибка карты:", e); // 👈 Добавляем логирование ошибок карты
+			console.error("Ошибка карты:", e);
 		});
 
 		map.current.on("load", () => {
 			console.log(map.current);
-			map.current.resize(); // 👈 принудительно обновляем размер после загрузки
+			map.current.resize();
 		});
 
 		return () => map.current?.remove();
 	}, []);
 
 	return <div ref={mapContainer} style={{ width: "400px", height: "400px" }} />;
+};
+
+render(<Map />);`;
+
+export const mapTilerMap_scope = {
+	MapTiler,
+	MapStyle,
+	config,
 };
