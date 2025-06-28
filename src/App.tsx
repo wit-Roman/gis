@@ -34,7 +34,7 @@ const scope = {
 };
 
 function App() {
-	const [code, setCode] = useState(helloWord);
+	const [code, setCode] = useState(maplibrereact);
 
 	return (
 		<>
@@ -52,9 +52,9 @@ function App() {
 			</nav>
 
 			<LiveProvider code={code} scope={scope} noInline>
+				<LivePreview />
 				<LiveEditor />
 				<LiveError />
-				<LivePreview />
 			</LiveProvider>
 		</>
 	);
